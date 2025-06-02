@@ -1,13 +1,11 @@
-
-
-import type { Metadata } from "next";
-import StoreProvider from "./storeProvider";
-import "./globals.css";
-
+import { Metadata } from "next";
+import "../globals.css"
 
 export const metadata: Metadata = {
-  title: "Book Store",
-  description: "Book Store",
+ 
+  description: "BookLibrary ",
+ 
+  
 };
 
 export default function RootLayout({
@@ -18,9 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <StoreProvider>
+     
        {children}
-         </StoreProvider>
+      
       </body>
     </html>
   );
