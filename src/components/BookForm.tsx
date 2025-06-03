@@ -62,7 +62,7 @@ export default function BookList() {
     const uploadForm = new FormData();
     uploadForm.append('file', file);
    
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/upload`, {
+    const res = await fetch('/api/upload', {
       method: 'POST',
       body: uploadForm,
     });
@@ -119,7 +119,7 @@ const imagePublicId = getPublicId(imageUrl);
 };
 
  async function fetchBook ()  {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/fetchBook`);
+  const response = await fetch('/api/fetchBook');
   const data = await response.json();
   setBook(data);
  }
@@ -131,7 +131,7 @@ useEffect(()=>{
 },[])
 
 const handleDelete = async (_id : string, bookId: string, imageId:string) => {
-         await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/fetchBook`,{
+         await fetch('/api/fetchBook',{
           method: "POST",
           headers : { "Content-Type" : "application/json"},
           body: JSON.stringify({ _id , bookId,imageId})
