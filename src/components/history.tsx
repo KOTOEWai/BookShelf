@@ -86,7 +86,7 @@ export default function CategoryHist({books}:Props) {
                       className="object-cover rounded-t-xl  "
                     />
                   </div>
-                  <p className="p-4 text-sm font-semibold w-52 ">{book.BookName}</p>
+                  <p className="p-4 text-sm font-semibold w-full ">{book.BookName}</p>
                 </motion.div>
               ))}
             </motion.div>

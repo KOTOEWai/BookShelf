@@ -117,7 +117,10 @@ if(loading){
 const showToastMessage = () => {
       
         toast.success('Book save Successfully', {
-          position: "top-right",
+          position: "top-center",
+          autoClose: 900,
+          hideProgressBar: false,
+          closeOnClick: true,
         });
   };
   
@@ -131,7 +134,7 @@ const savebook = () => {
     return (
         <>
         <ToastContainer/>
-   <div className="h-screen">
+   <div className="">
    <motion.div
   initial={{ opacity: 0, y: 40 }}
   animate={{ opacity: 1, y: 0 }}
@@ -139,7 +142,7 @@ const savebook = () => {
   className="flex flex-col md:flex-row w-full mt-5 "
 >
   {/* Book Container */}
-  <div className="flex flex-col md:flex-row justify-center items-center  md:gap-4 w-[60%] md:w-[50%] mx-auto  p-6  rounded-2xl shadow-2xl">
+  <div className="flex flex-col md:flex-row justify-center items-center  md:gap-4 w-[90%] md:w-[50%] mx-auto  p-10  rounded-2xl shadow-2xl">
   
     <motion.img
       src={book?.Image || "https://via.placeholder.com/300x450?text=Book+Cover"}
@@ -153,7 +156,7 @@ const savebook = () => {
 
     {/* Book Info */}
     <div className=" space-y-2">
-      <h1 className="text-2xl md:text-3xl font-bold text-gray-800">{book?.BookName}</h1>
+      <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mt-3">{book?.BookName}</h1>
       <h2 className="text-lg text-gray-600">✍️ {book?.Author}</h2>
       <p className="text-gray-700">
         {book?.Description && book.Description !== '-' ? book.Description : "No description available."}

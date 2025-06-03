@@ -54,7 +54,7 @@ export default function Navbar() {
 
           {/* Logo and desktop nav */}
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex shrink-0 items-center text-white text-xl font-bold">📚 BookShelf</div>
+            <div className="flex shrink-0 items-center text-white text-xl font-bold me-12">📚 BookShelf</div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4 ">
                 {navLinks.map(({ href, label }) => (
@@ -78,7 +78,7 @@ export default function Navbar() {
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             {session ? (
               <div className="flex space-x-3">
-                <Link href={'/profile'} className="text-gray-300 text-sm hidden sm:inline">
+                <Link href={'/profile'} className="text-gray-300 text-sm sm:inline">
               {session.user.image ? (
               <Image 
               width={50}
@@ -141,6 +141,8 @@ export default function Navbar() {
                 {label}
               </Link>
             ))}
+
+          
           </div>
         </div>
       )}
