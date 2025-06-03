@@ -54,7 +54,7 @@ export default function Navbar() {
 
           {/* Logo and desktop nav */}
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex shrink-0 items-center text-white text-xl font-bold me-12">📚 BookShelf</div>
+            <div className="flex shrink-0 items-center text-white text-xl font-bold me-20">📚 BookShelf</div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4 ">
                 {navLinks.map(({ href, label }) => (
@@ -99,7 +99,7 @@ export default function Navbar() {
                 </Link>
                 <button
                   onClick={() => signOut()}
-                  className="rounded-md bg-red-600 px-3 py-2 text-sm font-medium text-white hover:bg-red-700"
+                  className="rounded-md bg-red-600 px-1 md:px-3 md:py-2 text-sm font-medium text-white hover:bg-red-700"
                 >
                   Sign out
                 </button>
@@ -108,13 +108,13 @@ export default function Navbar() {
               <div className='space-x-4'>
               <Link
                 href="/login"
-                className="rounded-md bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700"
+                className="rounded-md bg-blue-600 px-1 md:px-3 py-2 text-sm md:font-medium text-white hover:bg-blue-700"
               >
                 Sign In
               </Link>
                <Link
                 href="/register"
-                className="rounded-md bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700"
+                className="rounded-md bg-blue-600 px-1 md:px-3 py-2 text-sm md:font-medium text-white hover:bg-blue-700"
               >
                 Sign Up
               </Link>
