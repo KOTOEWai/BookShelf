@@ -119,7 +119,7 @@ const imagePublicId = getPublicId(imageUrl);
 };
 
  async function fetchBook ()  {
-  const response = await fetch('http://localhost:3000/api/fetchBook');
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/fetchBook`);
   const data = await response.json();
   setBook(data);
  }

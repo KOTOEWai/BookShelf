@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store"; // update path as needed
 import { unsaveBook } from "@/app/features/savedBooks/book"; 
 import Image from "next/image";
-
+import Link from "next/link";
 export default function SavedBooksPage() {
   const books = useSelector((state: RootState) => state.savedBook.book);
   const dispatch = useDispatch();
@@ -23,7 +23,9 @@ export default function SavedBooksPage() {
         <div
           key={book.bookId}
           className="bg-white rounded-xl shadow-md p-4 flex flex-col items-center text-center"
+
         >
+          
           <Image
             src={book.Image}
             alt={book.BookName}
@@ -31,6 +33,7 @@ export default function SavedBooksPage() {
             height={160}
             className="rounded-md mb-3"
           />
+         
           <h3 className="font-bold text-sm">{book.BookName}</h3>
           <button
             onClick={() => handleUnsave(book.bookId)}
