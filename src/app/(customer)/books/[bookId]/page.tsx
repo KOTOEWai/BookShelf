@@ -144,7 +144,8 @@ const savebook = () => {
     <motion.img
       src={book?.Image || "https://via.placeholder.com/300x450?text=Book+Cover"}
       alt={book?.BookName || "Book Cover"}
-  
+       width={300}
+       height={300}
       className="   rounded-xl shadow-md object-cover "
       whileHover={{ scale: 1.05 }}
       transition={{ type: "spring", stiffness: 200 }}
