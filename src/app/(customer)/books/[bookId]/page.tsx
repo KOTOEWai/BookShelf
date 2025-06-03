@@ -139,13 +139,13 @@ const savebook = () => {
   className="flex flex-col md:flex-row w-full mt-5 "
 >
   {/* Book Container */}
-  <div className="flex flex-col md:flex-row justify-center items-center  md:gap-4 w-[80%] md:w-[70%] mx-auto  p-6 bg-amber-100 rounded-2xl shadow-2xl">
+  <div className="flex flex-col md:flex-row justify-center items-center  md:gap-4 w-[60%] md:w-[50%] mx-auto  p-6  rounded-2xl shadow-2xl">
   
     <motion.img
       src={book?.Image || "https://via.placeholder.com/300x450?text=Book+Cover"}
       alt={book?.BookName || "Book Cover"}
-      
-      className="   rounded-xl shadow-md object-cover"
+  
+      className="   rounded-xl shadow-md object-cover "
       whileHover={{ scale: 1.05 }}
       transition={{ type: "spring", stiffness: 200 }}
     />

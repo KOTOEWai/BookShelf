@@ -4,8 +4,7 @@
 import photo from "@/public/smart-boy-reading-book_1308-146055.avif"
 import Image from "next/image"
 import Link from "next/link"
-import { createUser , FormState } from "@/actions/user"
-import {  startTransition, useActionState, useEffect, useState } from "react"
+import {  useEffect, useState } from "react"
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import profile from '@/public/profile.webp'
@@ -13,19 +12,13 @@ export type Data = {
     name: string,
     email: string,
     password:string,
-   
 }
 
 export default function Register(){
    
 const [ uploading,setUploading] = useState(false)
-    const initialState : FormState = {
-        errors : {},
-    }
+ const [ preview , setPreview] = useState<string|null>(null)
 
-
-    const [ state,formAction,isPending ] = useActionState(createUser , initialState);
-    const [ preview , setPreview] = useState<string|null>(null)
     const showToastMessage = ()=>{
         toast.success('Register created successfully', {
             position: "top-right",}
@@ -54,21 +47,39 @@ const [ uploading,setUploading] = useState(false)
   setUploading(true)
   try{
   const imageUrl = await upload(imageFile);
-  formData.set('image',imageUrl)
-
   
-    startTransition(()=>{
-        formAction(formData);
-    })
+  const payload = {
+    name : formData.get("name"),
+    email: formData.get("email"),
+    password: formData.get("password"),
+    image: imageUrl
+  }
+  const res = await fetch('/api/fetchUser', {
+    method: 'POST',
+    headers : {
+        'Content-Type': 'application/json',
+        },
+    body: JSON.stringify(payload),
+    });
+  
+    if(res.ok){
     showToastMessage()
     window.location.href = '/login'
+    }
+ 
 }catch(error){
-    console.error(error)
+   console.log(error)
+   toast.error("Failed to register. Please try again.", {
+    position: "top-right",
+  });
+
 
 }finally{
     setUploading(false)
 }
 }
+
+
     const handleChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
   
         const file = e.target.files?.[0];
@@ -95,8 +106,8 @@ return (
             <h2 className="font-bold text-3xl text-[#002D74]">Register</h2>
 
 
-            <form onSubmit={handleSubmit} action={formAction} className="flex flex-col gap-3">
-                  {state.errors?.message && <span className="text-red-500">{state.errors.message}</span>}
+            <form onSubmit={handleSubmit}  className="flex flex-col gap-3">
+                
               <div className="rounded-md ">
     <label htmlFor="upload" className="flex flex-col items-center gap-2 cursor-pointer">
       {preview ? (
@@ -111,12 +122,12 @@ return (
 </div>
                
                  <input className="p-2 mt-1 rounded-xl border" type="text" name="name" placeholder="Your Name"/>
-                 {state.errors?.name && <span className="text-red-500">{state.errors.name}</span>}
+               
                 <input  className="p-2  rounded-xl border" type="email" name="email" placeholder="Your Email"/>
-                {state.errors?.email && <span className="text-red-600">{state.errors.email}</span>}
+               
                 <div className="relative">
                     <input  className="p-2 rounded-xl border w-full" type="password" name="password" id="password" placeholder="Password"/>
-                    {state.errors?.password && <span className="text-red-500">{state.errors.password}</span>}
+                 
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" id="togglePassword"
                         className="bi bi-eye absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer z-20 opacity-100"
                         viewBox="0 0 16 16">
@@ -138,7 +149,7 @@ return (
                         </path>
                     </svg>
                 </div>
-                <button disabled={isPending || uploading} className="bg-[#002D74] text-white py-2 rounded-xl hover:scale-105 duration-300 hover:bg-[#206ab1] font-medium" type="submit">{isPending || uploading ? "Submitting...":"Submit"}</button>
+                <button disabled={uploading} className="bg-[#002D74] text-white py-2 rounded-xl hover:scale-105 duration-300 hover:bg-[#206ab1] font-medium" type="submit">{ uploading ? "Submitting...":"Submit"}</button>
             </form>
 
 

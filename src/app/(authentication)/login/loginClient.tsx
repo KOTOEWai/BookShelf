@@ -23,10 +23,8 @@ export default function LoginPage(){
     email,
     password,
     redirect: false,
-   
   });
 
-  
      if (res?.ok) {
      showToastMessage()
      window.location.href = '/'

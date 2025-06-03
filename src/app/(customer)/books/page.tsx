@@ -38,7 +38,7 @@ export default function Book() {
   useEffect(() => {
     async function fetchbook() {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/fetchBook`);
+        const response = await fetch('/api/fetchBook');
         const data = await response.json();
         setBooks(data);
       } catch (error) {
