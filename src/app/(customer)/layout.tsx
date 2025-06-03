@@ -8,8 +8,8 @@ import Footer from "@/components/footer";
 import Head from 'next/head'
 
 export const metadata: Metadata = {
-  title: "Book Store",
-  description: "Book Store",
+  title: "Book Shelf",
+  description: "Book Shelf",
 };
 
 export default async function RootLayout({

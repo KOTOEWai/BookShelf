@@ -6,8 +6,8 @@ import "./globals.css";
 
 
 export const metadata: Metadata = {
-  title: "Book Store",
-  description: "Book Store",
+  title: "Book Shelf",
+  description: "Book Shelf",
 };
 
 export default function RootLayout({
