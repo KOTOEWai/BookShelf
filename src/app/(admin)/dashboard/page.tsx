@@ -1,75 +1,57 @@
-'use client'
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Users, ShoppingCart, DollarSign, TrendingUp } from "lucide-react"
 
-import { useState } from "react";
-import book from '@/public/book.jpg'
-import user from '@/public/user.avif'
-import Image from "next/image";
-import UserForm from "@/components/UserForm";
-import BookForm from "@/components/BookForm";
-
-export default function AdminManagePage() {
- 
-  const [activeSection, setActiveSection] = useState<"user" | "order" | "book" | null>(null);
-
-
-
-  const sections = [
+export default function AdminDashboard() {
+  const stats = [
     {
-      key: "user",
-      label: "Manage Users",
-      image: user
+      title: "Total Users",
+      value: "2,543",
+      change: "+12.5%",
+      icon: Users,
     },
-
     {
-      key: "book",
-      label: "Manage Books",
-      image:book
-    
+      title: "Total Orders",
+      value: "1,234",
+      change: "+8.2%",
+      icon: ShoppingCart,
     },
-  ];
-
-  const renderSectionContent = () => {
-    switch (activeSection) {
-      case "user":
-        return <UserForm/>;
-      
-      case "book":
-        return <BookForm/>;
-      default:
-        return null;
-    }
-  };
+    {
+      title: "Revenue",
+      value: "$45,231",
+      change: "+23.1%",
+      icon: DollarSign,
+    },
+    {
+      title: "Growth",
+      value: "18.2%",
+      change: "+4.3%",
+      icon: TrendingUp,
+    },
+  ]
 
   return (
-        <div className="m-10">
-          <section className="grid   md:grid-cols-3  gap-3 md:gap-5 md:mt-4 mx-14">
-            {sections.map(({ key, label,image  }) => (
-              <div
-                key={key}
-                role="button"
-                tabIndex={0}
-                aria-pressed={activeSection === key}
-                onClick={() => setActiveSection(key as "user" | "order" | "book")}
-                className="flex items-center p-4 md:p-8 bg-white shadow rounded-lg"
-              >
-                <div className='inline-flex items-center justify-center h-10 w-10 md:h-16 md:w-16 rounded-full mr-6 '>
-                  <Image src={image} alt={key}></Image>
-                </div>
-                <div>
-                  <span className="block text-gray-500">{label}</span>
-                </div>
-              </div>
-            ))}
+    <div className="space-y-8">
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight text-balance">Dashboard</h1>
+        <p className="text-muted-foreground">Welcome back! Here's an overview of your admin panel.</p>
+      </div>
 
-          
-          </section>
-          {activeSection && (
-              <div className="transition-all duration-300 ease-in-out">
-                {renderSectionContent()}
-              </div>
-            )}
-        </div>
-     
-    
-  );
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {stats.map((stat) => (
+          <Card key={stat.title}>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">{stat.title}</CardTitle>
+              <stat.icon className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{stat.value}</div>
+              <p className="text-xs text-muted-foreground">
+                <span className="text-green-600">{stat.change}</span> from last month
+              </p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  )
 }

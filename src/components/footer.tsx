@@ -1,36 +1,103 @@
-'use client'
+"use client"
 
-import { motion } from 'framer-motion'
-import Link from 'next/link'
+import { BookOpen, Facebook, Instagram, Twitter } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
-export default function Footer() {
+export function Footer() {
   return (
-    <motion.footer
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="bg-gray-900 text-white py-6 mt-20"
-    >
-      <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-        <div className="text-center md:text-left">
-          <p className="text-lg font-semibold">📚 BookShelf</p>
-          <p className="text-sm text-gray-400">Your gateway to knowledge and stories.</p>
+    <footer className="py-12 border-t bg-background border-border">
+      <div className="container px-4 mx-auto lg:px-8">
+        <div className="grid grid-cols-1 gap-8 mb-8 md:grid-cols-4">
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <BookOpen className="w-6 h-6 text-primary" />
+              <span className="text-xl font-bold text-foreground">Literati</span>
+            </div>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              Your destination for discovering exceptional books and timeless stories.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="mb-4 font-bold text-foreground">Shop</h3>
+            <ul className="space-y-2">
+              <li>
+                <a href="#" className="text-sm transition-colors text-muted-foreground hover:text-foreground">
+                  New Arrivals
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-sm transition-colors text-muted-foreground hover:text-foreground">
+                  Bestsellers
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-sm transition-colors text-muted-foreground hover:text-foreground">
+                  Categories
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-sm transition-colors text-muted-foreground hover:text-foreground">
+                  Gift Cards
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="mb-4 font-bold text-foreground">Company</h3>
+            <ul className="space-y-2">
+              <li>
+                <a href="#" className="text-sm transition-colors text-muted-foreground hover:text-foreground">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-sm transition-colors text-muted-foreground hover:text-foreground">
+                  Contact
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-sm transition-colors text-muted-foreground hover:text-foreground">
+                  Careers
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-sm transition-colors text-muted-foreground hover:text-foreground">
+                  Press
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="mb-4 font-bold text-foreground">Follow Us</h3>
+            <div className="flex gap-2">
+              <Button variant="outline" size="icon">
+                <Instagram className="w-4 h-4" />
+              </Button>
+              <Button variant="outline" size="icon">
+                <Twitter className="w-4 h-4" />
+              </Button>
+              <Button variant="outline" size="icon">
+                <Facebook className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
         </div>
 
-        <div className="flex space-x-6 text-sm">
-          <Link href="/" className="hover:text-purple-400 transition duration-300">
-            Home
-          </Link>
-          <Link href="/about" className="hover:text-purple-400 transition duration-300">
-            About
-          </Link>
-          <Link href="/contact" className="hover:text-purple-400 transition duration-300">
-            Contact
-          </Link>
+        <div className="flex flex-col items-center justify-between gap-4 pt-8 border-t border-border md:flex-row">
+          <p className="text-sm text-muted-foreground">© 2025 Literati. All rights reserved.</p>
+          <div className="flex gap-6">
+            <a href="#" className="text-sm transition-colors text-muted-foreground hover:text-foreground">
+              Privacy Policy
+            </a>
+            <a href="#" className="text-sm transition-colors  text-muted-foreground hover:text-foreground">
+              Terms of Service
+            </a>
+          </div>
         </div>
-
-        <p className="text-xs text-gray-500">&copy; {new Date().getFullYear()} BookVerse. All rights reserved.</p>
       </div>
-    </motion.footer>
+    </footer>
   )
 }

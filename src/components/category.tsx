@@ -1,58 +1,75 @@
 "use client";
+
 import Image from "next/image";
 import photo from "@/public/categorybook.avif";
 import { motion } from "framer-motion";
-import { useState,useEffect,useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 export default function CategorySlider() {
-     const OuterRef = useRef<HTMLDivElement | null>(null);
-     const InnerRef = useRef<HTMLDivElement | null>(null)
-     const [ width ,setWidth] =  useState(0);
-    
-     useEffect(()=>{
-       const outer =  OuterRef.current;
-       const inner =  InnerRef.current;
-       if(outer && inner){
-             const totalscroll =  outer.scrollWidth - inner.offsetWidth;
-             setWidth(totalscroll);
-       }
+  const sliderRef = useRef<HTMLDivElement | null>(null);
+  const [dragWidth, setDragWidth] = useState(0);
 
-     },[])
-  
+  const categories = [
+    "ဝတ္ထု",
+    "သုတ",
+    "သမိုင်း",
+    "ဘာသာရေး",
+    "တိုးတက်ရေး",
+    "ပညာရေး",
+  ];
+
+  useEffect(() => {
+    const slider = sliderRef.current;
+    if (slider) {
+      const updateWidth = () => {
+        const totalWidth = slider.scrollWidth - slider.offsetWidth;
+        setDragWidth(totalWidth);
+      };
+
+      updateWidth(); // on mount
+      window.addEventListener("resize", updateWidth);
+
+      return () => window.removeEventListener("resize", updateWidth);
+    }
+  }, []);
+
   return (
-    <div className="w-full px-6 py-10 mb-6">
-      <h2 className="text-2xl font-bold mb-6 text-center">📚 Book Categories</h2>
+    <div className="w-full px-6 py-10 mt-3 mb-6">
+      <motion.h2
+        initial={{ opacity: 0, y: 100 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2 }}
+        viewport={{ once: true }}
+        className="mt-3 mb-6 text-4xl font-bold text-center"
+      >
+        Book Categories
+      </motion.h2>
 
-      <div ref={OuterRef} className="overflow-hidden  p-7">
+      {/* Outer wrapper */}
+      <div className="p-3 overflow-hidden">
+        {/* Draggable container */}
         <motion.div
-          ref={InnerRef}
-          className="flex space-x-4 "
+          ref={sliderRef}
+          className="flex space-x-4 cursor-grab active:cursor-grabbing"
           drag="x"
-          dragConstraints={{ right: 0, left: -width }}
-          whileTap={{ cursor: "grabbing" }}
-          
+          dragConstraints={{ left: -dragWidth, right: 0 }}
+          dragTransition={{ bounceStiffness: 120, bounceDamping: 20 }}
         >
-          {[
-            "ဝတ္ထု",
-            "သုတ",
-            "သမိုင်း",
-            "ဘာသာရေး",
-            "တိုးတက်ရေး",
-            "ပညာရေး",
-          ].map((title, idx) => (
+          {categories.map((title, idx) => (
             <motion.div
-              whileTap={{cursor:"grabbing"}}
-              whileHover={{scale:1.1}}
               key={idx}
-              className="min-w-[300px] bg-white rounded-xl shadow-md hover:shadow-lg transition duration-300 text-center"
+              className="min-w-[260px] bg-white rounded-xl shadow-md hover:shadow-lg transition duration-300 text-center"
+              initial={{ opacity: 0, y: 100 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: idx * 0.2 }}
+              viewport={{ once: true }}
             >
-              <div
-              className="relative w-full h-60">
+              <div className="relative w-full h-52">
                 <Image
                   src={photo}
                   alt={title}
                   fill
-                  className="object-cover rounded-t-xl cursor-grabbing"
+                  className="object-cover rounded-t-xl"
                 />
               </div>
               <p className="p-2 text-sm font-semibold">{title}</p>

@@ -4,10 +4,8 @@ export const metadata = {
   description: "Login to your BookLibrary account",
 };
 
-import LoginPage from './loginClient';
+import LoginPage from './LoginForm';
 
 export default function Page(){
-
     return   <LoginPage/>
-    
 }

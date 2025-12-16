@@ -1,15 +1,22 @@
 
-import { Provider } from "./prodiver";
+import { NextProvider } from "./NextAuthProvider";
 import type { Metadata } from "next";
 import "../globals.css";
+import {Inter} from "next/font/google";
+const inter = Inter({ subsets: ['latin'], weight: ['400','700'] });
 
 import Navbar from "@/components/nav";
-import Footer from "@/components/footer";
+
 import Head from 'next/head'
+import { Footer } from "@/components/footer";
+import { SavedBooksProvider } from "../context/SavedBooksContext";
 
 export const metadata: Metadata = {
-  title: "Book Shelf",
-  description: "Book Shelf",
+  title : {
+    default: 'Book Shelf',
+    template: '%s | Book Shelf',
+  },
+  description: "This is Book Shelf Application built with Next.js 13 and TypeScript!",
 };
 
 export default async function RootLayout({
@@ -17,22 +24,20 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
- 
   return (
-    
-    <html lang="en">
+    <html lang="en" className={inter.className}> 
       <body>
         <Head>
                <link rel="icon" href='/favicon.ico' />
         </Head>
 
-  <Provider >
+  <NextProvider >
       <Navbar/>
       
-       {children}
-        
+        <SavedBooksProvider> {children}</SavedBooksProvider>
+     
       <Footer/>
- </Provider>
+ </NextProvider>
       </body>
     </html>
   );

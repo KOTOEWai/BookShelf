@@ -1,151 +1,120 @@
-'use client';
+import InfoMenu from "@/components/info-menu"
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useSession, signOut } from 'next-auth/react';
-import { useState } from 'react';
-import profile from "@/public/profile.webp"
-import Image from 'next/image';
-const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/books', label: 'Books' },
-  { href: '/about', label: 'About' },
-];
+import NotificationMenu from "@/components/notification-menu"
+import UserMenu from "@/components/user-menu"
 
-export default function Navbar() {
-  const pathname = usePathname();
-  const { data: session } = useSession();
+import { Button } from "@/components/ui/button"
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+} from "@/components/ui/navigation-menu"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import Link from "next/link"
+import Image from "next/image";
+import Logo from "@/public/book.jpg"
+// Navigation links array to be used in both desktop and mobile menus
+const navigationLinks = [
+  { href: "/", label: "Home" },
+  { href: "/books", label: "books" },
+  { href: "#", label: "Pricing" },
+  { href: "/about", label: "About" },
+]
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleNavbar = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
+export default function Component() {
   return (
-    <nav className="bg-gray-800">
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-        <div className="relative flex h-16 items-center justify-between">
-          {/* Mobile menu button */}
-          <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-            <button
-              onClick={toggleNavbar}
-              type="button"
-              className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white"
-              aria-controls="mobile-menu"
-              aria-expanded={isMenuOpen}
-            >
-              <span className="sr-only">Toggle main menu</span>
-              <svg
-                className="block size-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
+    <header className="sticky top-0 z-50 px-4 border-b md:px-6 bg-background/95 backdrop-blur-sm">
+      <div className="flex items-center justify-between h-16 gap-4">
+        {/* Left side */}
+        <div className="flex items-center gap-2">
+          {/* Mobile menu trigger */}
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                className="group size-8 md:hidden"
+                variant="ghost"
+                size="icon"
               >
-                {isMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                )}
-              </svg>
-            </button>
-          </div>
-
-          {/* Logo and desktop nav */}
-          <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex shrink-0 items-center text-white text-xl font-bold me-20">📚 BookShelf</div>
-            <div className="hidden sm:ml-6 sm:block">
-              <div className="flex space-x-4 ">
-                {navLinks.map(({ href, label }) => (
-                  <Link
-                    key={href}
-                    href={href}
-                    className={`rounded-md px-3 py-2 text-sm font-medium ${
-                      pathname === href
-                        ? 'bg-gray-900 text-white'
-                        : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                    }`}
-                  >
-                    {label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Auth buttons */}
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            {session ? (
-              <div className="flex space-x-3">
-                <Link href={'/profile'} className="text-gray-300 text-sm sm:inline">
-              {session.user.image ? (
-              <Image 
-              width={50}
-              height={50}
-              src={session.user.image}
-               alt ='profile'
-               className="rounded-full "
-               /> ) : (
-                <Image 
-              width={50}
-              height={40}
-              src={profile}
-               alt ='profile'
-               className="rounded-full md:p-3"
-               />
-               )
-              }
-                </Link>
-                <button
-                  onClick={() => signOut()}
-                  className="rounded-md bg-red-600 px-1 md:px-3 md:py-2 text-sm font-medium text-white hover:bg-red-700"
+                <svg
+                  className="pointer-events-none"
+                  width={16}
+                  height={16}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  Sign out
-                </button>
-              </div>
-            ) : (
-              <div className='space-x-4'>
-              <Link
-                href="/login"
-                className="rounded-md bg-blue-600 px-1 md:px-3 py-2 text-sm md:font-medium text-white hover:bg-blue-700"
-              >
-                Sign In
-              </Link>
-               <Link
-                href="/register"
-                className="rounded-md bg-blue-600 px-1 md:px-3 py-2 text-sm md:font-medium text-white hover:bg-blue-700"
-              >
-                Sign Up
-              </Link>
-              </div>
-            )}
+                  <path
+                    d="M4 12L20 12"
+                    className="origin-center -translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-x-0 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-315"
+                  />
+                  <path
+                    d="M4 12H20"
+                    className="origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)] group-aria-expanded:rotate-45"
+                  />
+                  <path
+                    d="M4 12H20"
+                    className="origin-center translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-y-0 group-aria-expanded:rotate-135"
+                  />
+                </svg>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent align="start" className="p-1 w-36 md:hidden">
+              <NavigationMenu className="max-w-none *:w-full">
+                <NavigationMenuList className="flex-col items-start gap-0 md:gap-2">
+                  {navigationLinks.map((link, index) => (
+                    <NavigationMenuItem key={index} className="w-full">
+                      <Link href={link.href} className="py-1.5">
+                        {link.label}
+                      </Link>
+                    </NavigationMenuItem>
+                  ))}
+                </NavigationMenuList>
+              </NavigationMenu>
+            </PopoverContent>
+          </Popover>
+          {/* Main nav */}
+          <div className="flex items-center gap-6">
+            <a href="#" className="text-primary hover:text-primary/90">
+            <Image src={Logo} alt="Logo" width={50} height={50}/>
+            </a>
+            {/* Navigation menu */}
+            <NavigationMenu className="max-md:hidden">
+              <NavigationMenuList className="gap-4">
+                {navigationLinks.map((link, index) => (
+                  <NavigationMenuItem key={index}>
+                    <Link
+                      href={link.href}
+                      className="py-1.5 px-3 font-medium text-muted-foreground hover:text-primary"
+                    >
+                      {link.label}
+                    </Link>
+                  </NavigationMenuItem>
+                ))}
+              </NavigationMenuList>
+            </NavigationMenu>
           </div>
+        </div>
+        {/* Right side */}
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            {/* Info menu */}
+            <InfoMenu />
+            {/* Notification */}
+            <NotificationMenu />
+          </div>
+          {/* User menu */}
+          <UserMenu />
         </div>
       </div>
-
-      {/* Mobile menu items */}
-      {isMenuOpen && (
-        <div className="sm:hidden" id="mobile-menu">
-          <div className="space-y-1 px-2 pt-2 pb-3">
-            {navLinks.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className={`block rounded-md px-3 py-2 text-base font-medium ${
-                  pathname === href
-                    ? 'bg-gray-900 text-white'
-                    : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                }`}
-              >
-                {label}
-              </Link>
-            ))}
-
-          
-          </div>
-        </div>
-      )}
-    </nav>
-  );
+    </header>
+  )
 }

@@ -1,5 +1,5 @@
-import connectToMongo from "@/app/lib/db";
-import  User  from "@/app/models/user";
+import connectToMongo from "@/lib/db";
+import  User  from "@/models/user";
 import { NextResponse, NextRequest } from "next/server";
 
 
@@ -11,17 +11,11 @@ export async function GET(
   
   try {
     await connectToMongo();
-
-   
-
     // Find the book by _id
     const user = await User.findById(id)
-
     if (!user) {
       return NextResponse.json({ error: "Book not found" }, { status: 404 });
     }
-
-   
     return NextResponse.json(user);
   } catch (err) {
     console.error("Error fetching book:", err);

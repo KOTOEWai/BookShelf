@@ -1,4 +1,4 @@
-import Register from "./register"
+import Register from "./RegisterForm"
 
 import { Metadata } from "next"
 

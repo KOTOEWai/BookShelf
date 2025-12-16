@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 export default function RatingForm({ bookId ,userId , refreshRatings }: { bookId: string , userId:string | undefined ,refreshRatings: () =>void }) {
@@ -17,7 +18,8 @@ export default function RatingForm({ bookId ,userId , refreshRatings }: { bookId
       headers: { 'Content-Type': 'application/json' },
     });
 
-    alert('Thanks for your rating!');
+    
+    toast.success("Rating submitted successfully!", { position: "top-right" });
     setRating(0);
     setComment('');
     refreshRatings();
@@ -27,7 +29,6 @@ export default function RatingForm({ bookId ,userId , refreshRatings }: { bookId
 
   return (
    <>
-
     <form onSubmit={handleSubmit} className="mt-4">
       <div className="flex items-center gap-2 mb-2">
         {[1, 2, 3, 4, 5].map((star) => (
@@ -45,9 +46,9 @@ export default function RatingForm({ bookId ,userId , refreshRatings }: { bookId
         placeholder="Leave a comment"
         value={comment}
         onChange={(e) => setComment(e.target.value)}
-        className="w-full p-2 border rounded mb-2"
+        className="w-full p-2 mb-2 border rounded"
       />
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
+      <button type="submit" className="px-4 py-2 text-white bg-blue-600 rounded">
         Submit Rating
       </button>
     </form>

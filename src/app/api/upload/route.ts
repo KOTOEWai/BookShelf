@@ -7,21 +7,14 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET!,
 });
 
-
-
-
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
   const file = formData.get('file') as File;
   
-
   if (!file) return NextResponse.json({ error: 'No file provided' }, { status: 400 });
-
   const buffer = Buffer.from(await file.arrayBuffer());
-  
   const base64 = buffer.toString('base64');
-
-  const dataUri = `data:${file.type};base64,${base64}`;
+    const dataUri = `data:${file.type};base64,${base64}`;
     const isImage = file.type.startsWith('application/pdf')
     const resType = isImage ? 'raw': 'image';
   try {

@@ -1,11 +1,10 @@
-import connectToMongo from "@/app/lib/db";
+import connectToMongo from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
-import User  from "@/app/models/user"
+import User  from "@/models/user"
 import bcrypt from "bcryptjs";
 
 export async function POST( req:NextRequest){
     try{
-        await new Promise((resolve)=> setTimeout(resolve,1500));
         await connectToMongo();
         const {image,name,email,password} = await req.json();
         const salt = await bcrypt.genSalt(10);

@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 
-import connectToMongo from '@/app/lib/db';
-import { Rating } from '@/app/models/rating';
+import connectToMongo from '@/lib/db';
+import { Rating } from '@/models/rating';
 import { NextResponse, NextRequest } from 'next/server';
-
-import  User from '@/app/models/user'; 
+ 
 
 export async function GET(req: NextRequest) {
   await connectToMongo();
