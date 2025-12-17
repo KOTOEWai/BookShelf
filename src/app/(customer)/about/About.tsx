@@ -1,8 +1,8 @@
 
 "use client"
-import React from 'react';
+
 import Image from 'next/image';
-import photo from '@/public/trend-book.jpg'
+
 import {motion} from 'framer-motion'
 
 
@@ -20,7 +20,7 @@ export default function AboutPage() {
       className="flex flex-col items-center gap-8 md:flex-row">
         <div className="md:w-1/2">
           <Image
-            src={photo }
+            src="/trend-book.jpg"
             alt="Bookstore"
             width={600}
             height={400}

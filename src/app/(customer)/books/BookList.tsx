@@ -15,6 +15,7 @@ export default function BookList({
   initialPagination: any;
 }) {
   const [books, setBooks] = useState<Book[]>(initialBooks);
+  
   const [pagination, setPagination] = useState(initialPagination);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(false);
@@ -86,14 +87,16 @@ export default function BookList({
               whileHover={{ scale: 1.05 }}
             >
               <div className="relative h-56 my-3 sm:h-60">
-                <Link href={`/books/${book.bookId}`} className="relative w-full h-full">
-                  <Image
-                    src={book.Image}
-                    alt={book.BookName}
-                    fill
-                    className="object-cover rounded-t-xl"
-                  />
-                </Link>
+              
+          <Link href={`books/${book._id}`} >
+          <Image
+             src={book.Image}
+             alt={book.BookName}
+             fill
+             className="object-cover rounded-t-xl" 
+           />
+         </Link>
+
               </div>
               <p className="p-3 text-sm font-semibold line-clamp-2">{book.BookName}</p>
             </motion.div>

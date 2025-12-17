@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import photo from "@/public/categorybook.avif";
+import photo from "@/public/book.jpg";
 import { motion } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 
