@@ -24,9 +24,9 @@ export default function BookList({
     setLoading(true);
 
     const querySearch = search ? `&search=${search}` : "";
-
+    const base = process.env.NEXT_PUBLIC_BASE_URL!;
     const res = await fetch(
-      `/api/fetchBook?page=${page}&limit=${limit}${querySearch}`
+      `${base}/api/fetchBook?page=${page}&limit=${limit}${querySearch}`
     );
     const data = await res.json();
 
