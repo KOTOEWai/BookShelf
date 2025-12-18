@@ -4,7 +4,7 @@
 import Image from 'next/image';
 
 import {motion} from 'framer-motion'
-
+import photo from "@/public/bookshelf1.jpg";
 
 
 export default function AboutPage() {
@@ -20,7 +20,7 @@ export default function AboutPage() {
       className="flex flex-col items-center gap-8 md:flex-row">
         <div className="md:w-1/2">
           <Image
-            src="/trend-book.jpg"
+            src={photo}
             alt="Bookstore"
             width={600}
             height={400}
