@@ -5,11 +5,16 @@ import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params:Promise < { id: string }> }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
   try {
     await connectToMongo();
+    // Validate ObjectId format
+    if (!/^[0-9a-fA-F]{24}$/.test(id)) {
+      return NextResponse.json({ error: "Invalid book ID format" }, { status: 400 });
+    }
+
     // Find the book by _id
     const book = await BookModal.findById(id)
     if (!book) {

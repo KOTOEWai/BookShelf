@@ -16,6 +16,14 @@ const formSchema = new mongoose.Schema({
     type: String,
     minlength: [6, "Password must be at least 6 characters"],
   },
+  readingGoal: {
+    type: Number,
+    default: 0
+  },
+  booksRead: {
+    type: Number,
+    default: 0
+  },
 });
 
 // ✅ Important: this line registers the "User" model name

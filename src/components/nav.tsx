@@ -22,7 +22,7 @@ import Logo from "@/public/book.jpg"
 const navigationLinks = [
   { href: "/", label: "Home" },
   { href: "/books", label: "books" },
-  { href: "#", label: "Pricing" },
+  { href: "/pricing", label: "Pricing" },
   { href: "/about", label: "About" },
 ]
 
@@ -106,10 +106,7 @@ export default function Component() {
         {/* Right side */}
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
-            {/* Info menu */}
-            <InfoMenu />
-            {/* Notification */}
-            <NotificationMenu />
+           
           </div>
           {/* User menu */}
           <UserMenu />

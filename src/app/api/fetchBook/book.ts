@@ -35,3 +35,47 @@ export async function addBook(
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
+
+export async function updateBook(
+  id: string,
+  BookName: string,
+  Author: string,
+  category: string,
+  Price: number,
+  BookLink: string,
+  Image: string,
+  Description: string,
+  instock: number,
+  bookId: string,
+  imageId: string
+): Promise<NextResponse> {
+  try {
+    await connectToMongo();
+
+    const updatedBook = await BookModal.findByIdAndUpdate(
+      id,
+      {
+        BookName,
+        Author,
+        category,
+        Price,
+        BookLink,
+        Image,
+        Description,
+        instock,
+        bookId,
+        imageId,
+      },
+      { new: true }
+    );
+
+    if (!updatedBook) {
+      return NextResponse.json({ error: "Book not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(updatedBook, { status: 200 });
+  } catch (error) {
+    console.error("❌ Book update failed:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+  }
+}

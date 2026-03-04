@@ -20,7 +20,7 @@ export default withAuth(
     const isDashboardRoute = pathname.startsWith("/dashboard");
 
     if (isDashboardRoute) {
-      const allowedAdmins = ["toewailyun6@email.com", "admin@gmail.com"];
+      const allowedAdmins = ["toewailyun6@gmail.com", "admin@gmail.com"];
       const allowedRoles = ["admin", "superadmin"];
 
       if (!allowedAdmins.includes(userEmail!) && !allowedRoles.includes(userRole)) {

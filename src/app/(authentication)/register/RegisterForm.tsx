@@ -29,12 +29,12 @@ import {
   CardFooter,
 } from "@/components/ui/card"
 import { signIn } from "next-auth/react"
-import { RegisterFormSchema } from "@/lib/validation-shcemas"
+import { RegisterFormSchema, RegisterFormValues } from "@/lib/validation-schemas";
 import Link from "next/link"
 export default function MyForm() {
-   const router = useRouter();
+  const router = useRouter();
   const [preview, setPreview] = useState<string | null>(null)
-   const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof RegisterFormSchema>>({
     resolver: zodResolver(RegisterFormSchema),
@@ -55,60 +55,60 @@ export default function MyForm() {
     }
   }
 
- async function onSubmit(values: z.infer<typeof RegisterFormSchema>) {
-  
-  try {
-    setLoading(true)
-    // ✅ Image Upload
-    let imageUrl = ""
-    if (values.image) {
-      const formData = new FormData()
-      formData.append("file", values.image)
-      const uploadRes = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      })
-      const data = await uploadRes.json()
-      if(!uploadRes.ok || !data.url) throw new Error("Upload failed")
-      imageUrl = data.url
-    }
+  async function onSubmit(values: z.infer<typeof RegisterFormSchema>) {
 
-    // ✅ User register
-    const payload = {
-      name: values.name,
-      email: values.email,
-      password: values.password,
-      image: imageUrl,
-    }
+    try {
+      setLoading(true)
+      // ✅ Image Upload
+      let imageUrl = ""
+      if (values.image) {
+        const formData = new FormData()
+        formData.append("file", values.image)
+        const uploadRes = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        })
+        const data = await uploadRes.json()
+        if (!uploadRes.ok || !data.url) throw new Error("Upload failed")
+        imageUrl = data.url
+      }
 
-    const res = await fetch("/api/fetchUser", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    })
-    
-    if(res.ok) {
-      toast.success("Registration successful!")
-       await signIn("credentials", {
+      // ✅ User register
+      const payload = {
+        name: values.name,
         email: values.email,
         password: values.password,
-        redirect: false,
+        image: imageUrl,
+      }
+
+      const res = await fetch("/api/fetchUser", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       })
-      router.push("/")
+
+      if (res.ok) {
+        toast.success("Registration successful!")
+        await signIn("credentials", {
+          email: values.email,
+          password: values.password,
+          redirect: false,
+        })
+        router.push("/")
+      }
+    } catch (error) {
+      console.error("Form submission error", error)
+      toast.error("Upload or submit failed!")
+    } finally {
+      setLoading(false)
     }
-  } catch (error) {
-    console.error("Form submission error", error)
-    toast.error("Upload or submit failed!")
-  }finally {
-    setLoading(false)
   }
-}
 
 
   return (
     <div className="flex items-center justify-center min-h-screen p-4 bg-linear-to-b from-gray-50 to-gray-100">
       <Card className="w-full max-w-md border border-gray-200 shadow-lg rounded-2xl">
-        
+
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-semibold">Create Account</CardTitle>
           <CardDescription>Fill in your details to register</CardDescription>
@@ -205,15 +205,15 @@ export default function MyForm() {
               />
 
               <Button type="submit" className="w-full" disabled={loading}>
-  {loading ? (
-    <div className="flex items-center gap-2">
-      <div className="w-4 h-4 border-2 border-white rounded-full animate-spin border-t-transparent"></div>
-      Processing...
-    </div>
-  ) : (
-    "Submit"
-  )}
-</Button>
+                {loading ? (
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 border-2 border-white rounded-full animate-spin border-t-transparent"></div>
+                    Processing...
+                  </div>
+                ) : (
+                  "Submit"
+                )}
+              </Button>
 
             </form>
           </Form>
@@ -222,7 +222,7 @@ export default function MyForm() {
         <CardFooter className="flex justify-center text-sm text-gray-500">
           Already have an account?{" "}
           <span className="ml-1 text-blue-600 cursor-pointer hover:underline">
-             <Link href="/login" className="underline">
+            <Link href="/login" className="underline">
               Login
             </Link>
           </span>

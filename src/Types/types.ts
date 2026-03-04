@@ -8,13 +8,13 @@ export type Book = {
   BookName: string;
   Author: string;
   category: string;
-  Price:  number;
+  Price: number;
   BookLink: string;
   Image: string;
   Description: string;
-  instock: string;
-  Rating: string;
-  createdAt:string | undefined;
+  instock: number;
+  Rating: number;
+  createdAt: string | undefined;
 };
 
 
@@ -22,11 +22,11 @@ export type Book = {
 
 
 export type Rating = {
-  rating:number;
-  comment:string;
+  rating: number;
+  comment: string;
   userId?: {
-    name:string,
-    image:string 
+    name: string,
+    image: string
   }
-  bookId:string
+  bookId: string
 }

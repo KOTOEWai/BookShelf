@@ -26,7 +26,7 @@ import {
 } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { PasswordInput } from '@/components/ui/password-input'
-import { loginFormSchema } from '@/lib/validation-shcemas'
+import { loginFormSchema, LoginFormValues } from "@/lib/validation-schemas";
 
 const formSchema = loginFormSchema
 
@@ -41,7 +41,7 @@ export default function LoginPreview() {
     },
   })
 
-  async function onSubmit(values : z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const res = await signIn("credentials", {
         email: values.email,
